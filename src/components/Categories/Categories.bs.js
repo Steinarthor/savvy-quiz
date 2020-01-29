@@ -2,7 +2,7 @@
 
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
-import * as APIDecode$Codex from "../../apiDecode/APIDecode.bs.js";
+import * as APIDecode$Savvy from "../../apiDecode/APIDecode.bs.js";
 
 function Categories(Props) {
   var children = Props.children;
@@ -15,7 +15,7 @@ function Categories(Props) {
           fetch("https://opentdb.com/api_category.php").then((function (prim) {
                       return prim.json();
                     })).then((function (json) {
-                    var response = APIDecode$Codex.Categories.decode(json);
+                    var response = APIDecode$Savvy.Categories.decode(json);
                     Curry._1(setState, (function (_prevState) {
                             return /* LoadedCategories */[response[/* trivia_categories */0]];
                           }));

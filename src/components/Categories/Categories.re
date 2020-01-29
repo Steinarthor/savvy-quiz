@@ -1,12 +1,12 @@
 type state =
   | LoadingCategories
-  | LoadedCategories(list(APIDecode.Category.t))
+  | LoadedCategories(array(APIDecode.Category.t))
   | Error;
 
 let initialState = LoadingCategories;
 
 [@react.component]
-let make = (~children: list(APIDecode.Category.t) => React.element) => {
+let make = (~children: array(APIDecode.Category.t) => React.element) => {
   let (state, setState) = React.useState(() => LoadingCategories);
   React.useEffect0(() => {
     // Fetching categories

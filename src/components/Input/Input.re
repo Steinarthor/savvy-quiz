@@ -8,6 +8,7 @@ let make =
       ~placeholder: string=?,
       ~required: bool=?,
       ~readOnly: bool=?,
+      ~max: string=?,
       (),
     ) => {
   InputStyles.(
@@ -19,6 +20,7 @@ let make =
       placeholder
       required
       readOnly
+      max
     />
   );
 };

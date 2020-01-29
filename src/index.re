@@ -17,4 +17,4 @@ global(
   ],
 );
 global("body", [fontFamily(globalFont), margin(px(0))]);
-ReactDOMRe.renderToElementWithId(<Router />, "app");
+ReactDOMRe.renderToElementWithId(<Root />, "app");

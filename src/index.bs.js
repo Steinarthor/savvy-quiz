@@ -3,7 +3,7 @@
 import * as Css from "bs-css/src/Css.js";
 import * as React from "react";
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
-import * as Router$Codex from "./Router.bs.js";
+import * as Root$Savvy from "./Root.bs.js";
 
 var globalFont = Css.fontFace("MontserratMedium", /* :: */[
       Css.url("./src/fonts/Montserrat-Light.otf"),
@@ -32,7 +32,7 @@ Css.$$global("body", /* :: */[
       ]
     ]);
 
-ReactDOMRe.renderToElementWithId(React.createElement(Router$Codex.make, { }), "app");
+ReactDOMRe.renderToElementWithId(React.createElement(Root$Savvy.make, { }), "app");
 
 export {
   globalFont ,

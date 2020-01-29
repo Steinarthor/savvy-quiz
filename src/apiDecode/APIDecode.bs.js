@@ -27,7 +27,7 @@ var Category = {
 
 function decode$2(json) {
   return /* record */[/* trivia_categories */Json_decode.field("trivia_categories", (function (param) {
-                  return Json_decode.list(decode$1, param);
+                  return Json_decode.array(decode$1, param);
                 }), json)];
 }
 
@@ -35,10 +35,42 @@ var Categories = {
   decode: decode$2
 };
 
+function decode$3(json) {
+  return /* record */[
+          /* category */Json_decode.field("category", Json_decode.string, json),
+          /* type_ */Json_decode.field("type", Json_decode.string, json),
+          /* difficulty */Json_decode.field("difficulty", Json_decode.string, json),
+          /* question */Json_decode.field("question", Json_decode.string, json),
+          /* correctAnswer */Json_decode.field("correct_answer", Json_decode.string, json),
+          /* incorretAnswers */Json_decode.field("incorrect_answers", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json)
+        ];
+}
+
+var CategoryType = {
+  decode: decode$3
+};
+
+function decode$4(json) {
+  return /* record */[
+          /* responseCode */Json_decode.field("response_code", Json_decode.$$int, json),
+          /* results */Json_decode.field("results", (function (param) {
+                  return Json_decode.array(decode$3, param);
+                }), json)
+        ];
+}
+
+var CategoryTypeResult = {
+  decode: decode$4
+};
+
 export {
   RequestToken ,
   Category ,
   Categories ,
+  CategoryType ,
+  CategoryTypeResult ,
   
 }
 /* No side effect */

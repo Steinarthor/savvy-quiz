@@ -2,8 +2,8 @@
 
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
+import * as Types$Savvy from "./types/Types.bs.js";
 import * as Router$Savvy from "./Router.bs.js";
-import * as APIDecode$Savvy from "./apiDecode/APIDecode.bs.js";
 import * as QuizProvider$Savvy from "./context/QuizProvider.bs.js";
 
 var intialState = /* record */[
@@ -25,7 +25,7 @@ function Root(Props) {
           fetch("https://opentdb.com/api_token.php?command=request").then((function (res) {
                     return res.json();
                   })).then((function (json) {
-                  var tokenResponse = APIDecode$Savvy.RequestToken.decode(json);
+                  var tokenResponse = Types$Savvy.RequestToken.decode(json);
                   Curry._1(dispatch, /* SetToken */[tokenResponse[/* token */2]]);
                   return Promise.resolve(/* () */0);
                 }));

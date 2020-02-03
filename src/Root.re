@@ -20,7 +20,7 @@ let make = () => {
       Fetch.fetch("https://opentdb.com/api_token.php?command=request")
       |> then_(res => Fetch.Response.json(res))
       |> then_(json => {
-           let tokenResponse = APIDecode.RequestToken.decode(json);
+           let tokenResponse = Types.RequestToken.decode(json);
            dispatch(SetToken(tokenResponse.token));
            resolve();
          })

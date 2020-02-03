@@ -1,9 +1,6 @@
 [@react.component]
 let make =
-    (
-      ~currentQuestion: option(APIDecode.CategoryType.t),
-      ~nextQuestion: unit => unit,
-    ) => {
+    (~currentQuestion: option(Types.question), ~nextQuestion: unit => unit) => {
   <div>
     {currentQuestion->Belt.Option.mapWithDefault(React.null, currentQuestion =>
        <h1 dangerouslySetInnerHTML={"__html": currentQuestion.question} />

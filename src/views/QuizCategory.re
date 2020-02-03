@@ -1,15 +1,68 @@
-type state = {questions: array(Types.question)};
+type state = {
+  numberOfQuestions: int,
+  questions: array(Types.question),
+  difficulty: string,
+  quizType: string,
+  showQuestions: bool,
+};
+
+type action =
+  | SetNumberOfQuestions(int)
+  | SetQuestions(array(Types.question))
+  | SetDifficulty(string)
+  | SetQuizType(string)
+  | ShowQuestions(bool)
+  | FetchQuestions(string, string, array(Types.question) => unit);
+
+let initialState: state = {
+  numberOfQuestions: 1,
+  questions: [||],
+  difficulty: "any",
+  quizType: "any",
+  showQuestions: false,
+};
+
+let reducer = (state, action) => {
+  switch (action) {
+  | SetNumberOfQuestions(numberOfQuestions) => {
+      ...state,
+      questions: [||],
+      numberOfQuestions,
+    }
+  | SetQuestions(questions) => {...state, questions}
+  | SetDifficulty(difficulty) => {...state, difficulty}
+  | SetQuizType(quizType) => {...state, quizType}
+  | ShowQuestions(showQuestions) => {...state, showQuestions}
+  | FetchQuestions(categoryId, token, update) =>
+    Js.Promise.(
+      Network.fetchQuestions(
+        state.numberOfQuestions,
+        categoryId,
+        token,
+        state.difficulty,
+        state.quizType,
+      )
+      |> then_((res: Types.CategoryTypeResult.t) =>
+           update(res.results) |> resolve
+         )
+    )
+    |> ignore;
+    state;
+  };
+};
 
 [@react.component]
 let make = (~title: string, ~categoryId: string) => {
-  let (numberOfQuestions, setNumberOfQuestions) = React.useState(() => 1);
-  let (questions, setQuestions) = React.useState(() => [||]);
-  let (difficulty, setDifficulty) = React.useState(() => "any");
-  let (quizType, setQuizType) = React.useState(() => "any");
-  let (showQuestions, setShowQuestions) = React.useState(() => false);
+  let (state, dispatch) = React.useReducer(reducer, initialState);
+  let updateQuestionState = questions => {
+    dispatch(SetQuestions(questions));
+    dispatch(ShowQuestions(true));
+  };
   let quizContext = QuizContext.useQuiz();
-  let selectDiffultLevel = (level: string) => setDifficulty(_ => level);
-  let setQuestionType = (quizType: string) => setQuizType(_ => quizType);
+  let selectDiffultLevel = (level: string) =>
+    dispatch(SetDifficulty(level));
+  let setQuestionType = (quizType: string) =>
+    dispatch(SetQuizType(quizType));
 
   let difficultyLevel: list(Types.option) = [
     {value: "any", label: "Any"},
@@ -22,55 +75,14 @@ let make = (~title: string, ~categoryId: string) => {
     {value: "multiple", label: "Multiple"},
     {value: "boolean", label: "Boolean"},
   ];
+  let questionStream = MakeStream.array(~arrayList=state.questions);
 
-  let constructUrl =
-    String.(
-      (baseUrl: string) => {
-        switch (difficulty, quizType) {
-        | (x, y) when x !== "any" && y === "any" =>
-          concat("&", [baseUrl, "difficulty=" ++ difficulty])
-        | (x, y) when x !== "any" && y !== "any" =>
-          concat(
-            "&",
-            [baseUrl, "difficulty=" ++ difficulty, "type=" ++ quizType],
-          )
-        | (x, y) when x === "any" && y !== "any" =>
-          concat("&", [baseUrl, "type=" ++ quizType])
-        | _ => baseUrl
-        };
-      }
-    );
-
-  let createQuiz = {
-    let baseUrl =
-      "https://opentdb.com/api.php?amount="
-      ++ string_of_int(numberOfQuestions)
-      ++ "&category="
-      ++ categoryId
-      ++ "&token="
-      ++ quizContext.token;
-    Js.Promise.(
-      () => {
-        Fetch.fetch(constructUrl(baseUrl))
-        |> then_(Fetch.Response.json)
-        |> then_(json => {
-             let categoryTypeResponse =
-               APIDecode.CategoryTypeResult.decode(json);
-             setQuestions(_ => categoryTypeResponse.results);
-             setShowQuestions(_ => true);
-             resolve();
-           })
-        |> ignore;
-      }
-    );
-  };
-  let questionStream = MakeStream.array(~arrayList=questions);
   <div>
     <h1> {React.string(title)} </h1>
     <Input
-      value={string_of_int(numberOfQuestions)}
+      value={string_of_int(state.numberOfQuestions)}
       onChange={event =>
-        setNumberOfQuestions(ReactEvent.Form.target(event)##value)
+        dispatch(SetNumberOfQuestions(ReactEvent.Form.target(event)##value))
       }
       type_="number"
       isValid=true
@@ -83,9 +95,13 @@ let make = (~title: string, ~categoryId: string) => {
     <Button
       text="Create Quiz"
       type_="button"
-      onClick={_ => createQuiz()}
+      onClick={_ =>
+        dispatch(
+          FetchQuestions(categoryId, quizContext.token, updateQuestionState),
+        )
+      }
       disabled=false
     />
-    {showQuestions ? <Questions questionStream /> : React.null}
+    {state.showQuestions ? <Questions questionStream /> : React.null}
   </div>;
 };

@@ -31,7 +31,7 @@ function Questions(Props) {
   React.useEffect((function () {
           nextQuestion(/* () */0);
           return ;
-        }), ([]));
+        }), /* array */[questionStream]);
   return React.createElement("div", undefined, React.createElement(Question$Savvy.make, {
                   currentQuestion: match[0],
                   nextQuestion: nextQuestion

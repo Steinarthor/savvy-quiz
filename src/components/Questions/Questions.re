@@ -1,5 +1,5 @@
 [@react.component]
-let make = (~questionStream: Stream.t(Savvy.APIDecode.CategoryType.t)) => {
+let make = (~questionStream: Stream.t(Types.question)) => {
   let (currentQuestion, setCurrentQuestion) = React.useState(() => None);
 
   let nextQuestion = () => {
@@ -9,11 +9,14 @@ let make = (~questionStream: Stream.t(Savvy.APIDecode.CategoryType.t)) => {
     };
   };
 
-  React.useEffect0(() => {
-    // We do this to show the first question in the stream on mount.
-    nextQuestion();
-    None;
-  });
+  React.useEffect1(
+    () => {
+      // We do this to show the first question in the stream on mount..
+      nextQuestion();
+      None;
+    },
+    [|questionStream|],
+  );
 
   <div> <Question currentQuestion nextQuestion /> </div>;
 };

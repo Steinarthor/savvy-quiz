@@ -1,7 +1,7 @@
 [@react.component]
 let make =
     (~currentQuestion: option(Types.question), ~nextQuestion: unit => unit) => {
-  <div>
+  <div className=QuestionStyles.questions>
     {currentQuestion->Belt.Option.mapWithDefault(React.null, currentQuestion =>
        <h1 dangerouslySetInnerHTML={"__html": currentQuestion.question} />
      )}
@@ -16,6 +16,7 @@ let make =
            (answer: string) =>
              <p
                key=answer
+               className=QuestionStyles.question
                dangerouslySetInnerHTML={"__html": answer}
                onClick={_ => nextQuestion()}
              />,

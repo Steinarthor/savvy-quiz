@@ -2,7 +2,7 @@
 
 import * as Css from "bs-css/src/Css.js";
 
-var container = Css.style(/* :: */[
+var questions = Css.style(/* :: */[
       Css.display(/* flex */-1010954439),
       /* :: */[
         Css.flexDirection(/* column */-963948842),
@@ -16,14 +16,23 @@ var container = Css.style(/* :: */[
       ]
     ]);
 
-var form = Css.style(/* :: */[
-      Css.width(Css.px(650)),
-      /* [] */0
+var question = Css.style(/* :: */[
+      Css.margin(Css.px(5)),
+      /* :: */[
+        Css.cursor(/* pointer */-786317123),
+        /* :: */[
+          Css.fontSize(Css.px(24)),
+          /* :: */[
+            Css.fontWeight(Css.bold),
+            /* [] */0
+          ]
+        ]
+      ]
     ]);
 
 export {
-  container ,
-  form ,
+  questions ,
+  question ,
   
 }
-/* container Not a pure module */
+/* questions Not a pure module */

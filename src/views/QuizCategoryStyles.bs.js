@@ -2,7 +2,7 @@
 
 import * as Css from "bs-css/src/Css.js";
 
-var container = Css.style(/* :: */[
+var quizCategory = Css.style(/* :: */[
       Css.display(/* flex */-1010954439),
       /* :: */[
         Css.flexDirection(/* column */-963948842),
@@ -16,14 +16,8 @@ var container = Css.style(/* :: */[
       ]
     ]);
 
-var form = Css.style(/* :: */[
-      Css.width(Css.px(650)),
-      /* [] */0
-    ]);
-
 export {
-  container ,
-  form ,
+  quizCategory ,
   
 }
-/* container Not a pure module */
+/* quizCategory Not a pure module */

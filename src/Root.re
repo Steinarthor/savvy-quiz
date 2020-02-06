@@ -1,19 +1,30 @@
-type action =
-  | SetToken(string);
+let initialState: Types.quizState = {
+  token: "",
+  questions: [||],
+  quizStream: MakeStream.array(~arrayList=[||]),
+  numberOfQuestions: 0,
+  quizDifficulty: "any",
+  quizType: "any",
+};
 
-let intialState: Types.quizContext = {token: "", questions: []};
-
-let reducer = (initialState: Types.quizContext, action) => {
+let reducer = (state: Types.quizState, action: Types.quizAction) => {
   switch (action) {
-  | SetToken(token) => {...initialState, token}
+  | SetNumberOfQuestions(numberOfQuestions) => {...state, numberOfQuestions}
+  | SetQuizDifficulty(quizDifficulty) => {...state, quizDifficulty}
+  | SetQuizType(quizType) => {...state, quizType}
+  | SetQuestions(questions) => {...state, questions}
+  | SetToken(token) => {...state, token}
+  | MakeStream => {
+      ...state,
+      quizStream: MakeStream.array(~arrayList=state.questions),
+    }
   };
 };
-// Right now I'm not passing down the dispatch function or anything like that
-// https://dev.to/margaretkrutikova/reason-react-context-explained-in-action-5eki
-// TODO: Add refresh token if response is 4.
+
 [@react.component]
 let make = () => {
-  let (state, dispatch) = React.useReducer(reducer, intialState);
+  let (state, dispatch) = React.useReducer(reducer, initialState);
+  let contextValue: Types.quizContext = {state, dispatch};
   // Fetching token on mount.
   React.useEffect0(() => {
     Js.Promise.(
@@ -28,5 +39,5 @@ let make = () => {
     |> ignore;
     None;
   });
-  <QuizProvider value=state> <Router /> </QuizProvider>;
+  <QuizProvider value=contextValue> <Router /> </QuizProvider>;
 };

@@ -5,6 +5,8 @@ let button =
     height(px(55)),
     width(pct(100.)),
     border(px(0), `none, transparent),
+    maxWidth(px(300)),
+    margin(px(25)),
     borderRadius(px(4)),
     backgroundColor(Css_AtomicTypes.Color.hex(Colors.red)),
     boxShadows([

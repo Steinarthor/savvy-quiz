@@ -12,9 +12,34 @@ type question = {
   incorretAnswers: list(string),
 };
 
-type quizContext = {
+type answer = {
+  category: string,
+  difficulty: string,
+  question: string,
+  correctAnswer: string,
+  answer: string,
+};
+
+type quizAction =
+  | SetNumberOfQuestions(int)
+  | SetQuizDifficulty(string)
+  | SetQuizType(string)
+  | SetQuestions(array(question))
+  | SetToken(string)
+  | MakeStream;
+
+type quizState = {
   token: string,
-  questions: list(question),
+  questions: array(question),
+  quizStream: Stream.t(question),
+  numberOfQuestions: int,
+  quizDifficulty: string,
+  quizType: string,
+};
+
+type quizContext = {
+  state: quizState,
+  dispatch: quizAction => unit,
 };
 
 type requestToken = {

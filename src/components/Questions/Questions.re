@@ -1,9 +1,9 @@
 [@react.component]
-let make = (~questionStream: Stream.t(Types.question)) => {
+let make = () => {
   let (currentQuestion, setCurrentQuestion) = React.useState(() => None);
-
+  let quizContext = QuizContext.useQuiz();
   let nextQuestion = () => {
-    switch (Stream.next(questionStream)) {
+    switch (Stream.next(quizContext.state.quizStream)) {
     | question => setCurrentQuestion(_ => Some(question))
     | exception Stream.Failure => print_endline("No questions left")
     };
@@ -15,8 +15,8 @@ let make = (~questionStream: Stream.t(Types.question)) => {
       nextQuestion();
       None;
     },
-    [|questionStream|],
+    [|quizContext.state.quizStream|],
   );
 
-  <div> <Question currentQuestion nextQuestion /> </div>;
+  <Question currentQuestion nextQuestion />;
 };

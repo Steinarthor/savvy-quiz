@@ -1,11 +1,9 @@
 open Css;
 
-let container =
+let quizCategory =
   style([
     display(`flex),
     flexDirection(`column),
     alignItems(`center),
     justifyContent(`center),
   ]);
-
-let form = style([width(px(650))]);

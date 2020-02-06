@@ -8,169 +8,107 @@ import * as Button$Savvy from "../components/Button/Button.bs.js";
 import * as Select$Savvy from "../components/Select/Select.bs.js";
 import * as Network$Savvy from "../network/Network.bs.js";
 import * as Questions$Savvy from "../components/Questions/Questions.bs.js";
-import * as MakeStream$Savvy from "../utils/MakeStream.bs.js";
 import * as QuizContext$Savvy from "../context/QuizContext.bs.js";
-
-var initialState_001 = /* questions : array */[];
-
-var initialState = /* record */[
-  /* numberOfQuestions */1,
-  initialState_001,
-  /* difficulty */"any",
-  /* quizType */"any",
-  /* showQuestions */false
-];
-
-function reducer(state, action) {
-  switch (action.tag | 0) {
-    case /* SetNumberOfQuestions */0 :
-        return /* record */[
-                /* numberOfQuestions */action[0],
-                /* questions : array */[],
-                /* difficulty */state[/* difficulty */2],
-                /* quizType */state[/* quizType */3],
-                /* showQuestions */state[/* showQuestions */4]
-              ];
-    case /* SetQuestions */1 :
-        return /* record */[
-                /* numberOfQuestions */state[/* numberOfQuestions */0],
-                /* questions */action[0],
-                /* difficulty */state[/* difficulty */2],
-                /* quizType */state[/* quizType */3],
-                /* showQuestions */state[/* showQuestions */4]
-              ];
-    case /* SetDifficulty */2 :
-        return /* record */[
-                /* numberOfQuestions */state[/* numberOfQuestions */0],
-                /* questions */state[/* questions */1],
-                /* difficulty */action[0],
-                /* quizType */state[/* quizType */3],
-                /* showQuestions */state[/* showQuestions */4]
-              ];
-    case /* SetQuizType */3 :
-        return /* record */[
-                /* numberOfQuestions */state[/* numberOfQuestions */0],
-                /* questions */state[/* questions */1],
-                /* difficulty */state[/* difficulty */2],
-                /* quizType */action[0],
-                /* showQuestions */state[/* showQuestions */4]
-              ];
-    case /* ShowQuestions */4 :
-        return /* record */[
-                /* numberOfQuestions */state[/* numberOfQuestions */0],
-                /* questions */state[/* questions */1],
-                /* difficulty */state[/* difficulty */2],
-                /* quizType */state[/* quizType */3],
-                /* showQuestions */action[0]
-              ];
-    case /* FetchQuestions */5 :
-        var update = action[2];
-        Network$Savvy.fetchQuestions(state[/* numberOfQuestions */0], action[0], action[1], state[/* difficulty */2], state[/* quizType */3]).then((function (res) {
-                return Promise.resolve(Curry._1(update, res[/* results */1]));
-              }));
-        return state;
-    
-  }
-}
+import * as QuizCategoryStyles$Savvy from "./QuizCategoryStyles.bs.js";
 
 function QuizCategory(Props) {
   var title = Props.title;
   var categoryId = Props.categoryId;
-  var match = React.useReducer(reducer, initialState);
-  var dispatch = match[1];
-  var state = match[0];
-  var updateQuestionState = function (questions) {
-    Curry._1(dispatch, /* SetQuestions */Block.__(1, [questions]));
-    return Curry._1(dispatch, /* ShowQuestions */Block.__(4, [true]));
-  };
+  var match = React.useState((function () {
+          return false;
+        }));
+  var setShowQuestions = match[1];
   var quizContext = QuizContext$Savvy.useQuiz(/* () */0);
+  var createQuiz = function (param) {
+    Network$Savvy.fetchQuestions(quizContext[/* state */0][/* numberOfQuestions */3], categoryId, quizContext[/* state */0][/* token */0], quizContext[/* state */0][/* quizDifficulty */4], quizContext[/* state */0][/* quizType */5]).then((function (res) {
+            Curry._1(quizContext[/* dispatch */1], /* SetQuestions */Block.__(3, [res[/* results */1]]));
+            Curry._1(quizContext[/* dispatch */1], /* MakeStream */0);
+            return Promise.resolve(/* () */0);
+          }));
+    return /* () */0;
+  };
   var selectDiffultLevel = function (level) {
-    return Curry._1(dispatch, /* SetDifficulty */Block.__(2, [level]));
+    return Curry._1(quizContext[/* dispatch */1], /* SetQuizDifficulty */Block.__(1, [level]));
   };
   var setQuestionType = function (quizType) {
-    return Curry._1(dispatch, /* SetQuizType */Block.__(3, [quizType]));
+    return Curry._1(quizContext[/* dispatch */1], /* SetQuizType */Block.__(2, [quizType]));
   };
-  var questionStream = MakeStream$Savvy.array(state[/* questions */1]);
-  var match$1 = state[/* showQuestions */4];
-  return React.createElement("div", undefined, React.createElement("h1", undefined, title), React.createElement(Input$Savvy.make, {
-                  value: String(state[/* numberOfQuestions */0]),
-                  onChange: (function ($$event) {
-                      return Curry._1(dispatch, /* SetNumberOfQuestions */Block.__(0, [$$event.target.value]));
-                    }),
-                  type_: "number",
-                  isValid: true,
-                  placeholder: "Number of questions",
-                  required: true,
-                  max: "50"
-                }), React.createElement(Select$Savvy.make, {
-                  options: /* :: */[
-                    /* record */[
-                      /* value */"any",
-                      /* label */"Any"
-                    ],
-                    /* :: */[
-                      /* record */[
-                        /* value */"easy",
-                        /* label */"Easy"
-                      ],
-                      /* :: */[
+  return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, title), React.createElement("div", {
+                  className: QuizCategoryStyles$Savvy.quizCategory
+                }, React.createElement(Input$Savvy.make, {
+                      value: String(quizContext[/* state */0][/* numberOfQuestions */3]),
+                      onChange: (function ($$event) {
+                          return Curry._1(quizContext[/* dispatch */1], /* SetNumberOfQuestions */Block.__(0, [$$event.target.value]));
+                        }),
+                      type_: "number",
+                      isValid: true,
+                      placeholder: "Number of questions",
+                      required: true,
+                      max: "50"
+                    }), React.createElement(Select$Savvy.make, {
+                      options: /* :: */[
                         /* record */[
-                          /* value */"medium",
-                          /* label */"Medium"
+                          /* value */"any",
+                          /* label */"Any"
                         ],
                         /* :: */[
                           /* record */[
-                            /* value */"hard",
-                            /* label */"Hard"
+                            /* value */"easy",
+                            /* label */"Easy"
                           ],
-                          /* [] */0
+                          /* :: */[
+                            /* record */[
+                              /* value */"medium",
+                              /* label */"Medium"
+                            ],
+                            /* :: */[
+                              /* record */[
+                                /* value */"hard",
+                                /* label */"Hard"
+                              ],
+                              /* [] */0
+                            ]
+                          ]
                         ]
-                      ]
-                    ]
-                  ],
-                  onChange: selectDiffultLevel
-                }), React.createElement(Select$Savvy.make, {
-                  options: /* :: */[
-                    /* record */[
-                      /* value */"any",
-                      /* label */"Any"
-                    ],
-                    /* :: */[
-                      /* record */[
-                        /* value */"multiple",
-                        /* label */"Multiple"
                       ],
-                      /* :: */[
+                      onChange: selectDiffultLevel
+                    }), React.createElement(Select$Savvy.make, {
+                      options: /* :: */[
                         /* record */[
-                          /* value */"boolean",
-                          /* label */"Boolean"
+                          /* value */"any",
+                          /* label */"Any"
                         ],
-                        /* [] */0
-                      ]
-                    ]
-                  ],
-                  onChange: setQuestionType
-                }), React.createElement(Button$Savvy.make, {
-                  text: "Create Quiz",
-                  type_: "button",
-                  onClick: (function (param) {
-                      return Curry._1(dispatch, /* FetchQuestions */Block.__(5, [
-                                    categoryId,
-                                    quizContext[/* token */0],
-                                    updateQuestionState
-                                  ]));
-                    }),
-                  disabled: false
-                }), match$1 ? React.createElement(Questions$Savvy.make, {
-                    questionStream: questionStream
-                  }) : null);
+                        /* :: */[
+                          /* record */[
+                            /* value */"multiple",
+                            /* label */"Multiple"
+                          ],
+                          /* :: */[
+                            /* record */[
+                              /* value */"boolean",
+                              /* label */"Boolean"
+                            ],
+                            /* [] */0
+                          ]
+                        ]
+                      ],
+                      onChange: setQuestionType
+                    }), React.createElement(Button$Savvy.make, {
+                      text: "Create Quiz",
+                      type_: "button",
+                      onClick: (function (param) {
+                          createQuiz(/* () */0);
+                          return Curry._1(setShowQuestions, (function (param) {
+                                        return true;
+                                      }));
+                        }),
+                      disabled: false
+                    }), match[0] ? React.createElement(Questions$Savvy.make, { }) : null));
 }
 
 var make = QuizCategory;
 
 export {
-  initialState ,
-  reducer ,
   make ,
   
 }

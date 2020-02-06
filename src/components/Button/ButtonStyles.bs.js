@@ -11,29 +11,35 @@ var button = Css.style(/* :: */[
         /* :: */[
           Css.border(Css.px(0), /* none */-922086728, Css.transparent),
           /* :: */[
-            Css.borderRadius(Css.px(4)),
+            Css.maxWidth(Css.px(300)),
             /* :: */[
-              Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.red)),
+              Css.margin(Css.px(25)),
               /* :: */[
-                Css.boxShadows(/* :: */[
-                      Css.Shadow.box(undefined, Css.px(1), Css.px(3), undefined, undefined, Css.rgba(0, 0, 0, 0.12)),
-                      /* :: */[
-                        Css.Shadow.box(undefined, Css.px(1), Css.px(2), undefined, undefined, Css.rgba(0, 0, 0, 0.24)),
-                        /* [] */0
-                      ]
-                    ]),
+                Css.borderRadius(Css.px(4)),
                 /* :: */[
-                  Css.focus(/* :: */[
-                        Css.outline(Css.px(0), /* none */-922086728, Css.transparent),
-                        /* [] */0
-                      ]),
+                  Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.red)),
                   /* :: */[
-                    Css.fontSize(Css.px(16)),
+                    Css.boxShadows(/* :: */[
+                          Css.Shadow.box(undefined, Css.px(1), Css.px(3), undefined, undefined, Css.rgba(0, 0, 0, 0.12)),
+                          /* :: */[
+                            Css.Shadow.box(undefined, Css.px(1), Css.px(2), undefined, undefined, Css.rgba(0, 0, 0, 0.24)),
+                            /* [] */0
+                          ]
+                        ]),
                     /* :: */[
-                      Css.color(Css.white),
+                      Css.focus(/* :: */[
+                            Css.outline(Css.px(0), /* none */-922086728, Css.transparent),
+                            /* [] */0
+                          ]),
                       /* :: */[
-                        Css.cursor(/* pointer */-786317123),
-                        /* [] */0
+                        Css.fontSize(Css.px(16)),
+                        /* :: */[
+                          Css.color(Css.white),
+                          /* :: */[
+                            Css.cursor(/* pointer */-786317123),
+                            /* [] */0
+                          ]
+                        ]
                       ]
                     ]
                   ]

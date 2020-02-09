@@ -24,8 +24,14 @@ let make = () => {
   );
   quizContext.state.fetchingQuestions
     ? <div> {React.string("Loading...")} </div>
-    : <>
+    : <div className=QuestionStyles.questions>
         <QuestionCount count=questionCount total=totalQuestions />
-        <Question currentQuestion nextQuestion />
-      </>;
+        <Question currentQuestion />
+        <Button
+          text="Next"
+          type_="button"
+          onClick={_ => nextQuestion()}
+          disabled=false
+        />
+      </div>;
 };

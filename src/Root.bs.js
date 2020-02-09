@@ -20,7 +20,7 @@ var initialState = /* record */[
   initialState_001,
   initialState_002,
   initialState_003,
-  /* numberOfQuestions */0,
+  /* numberOfQuestions */1,
   /* quizDifficulty */"any",
   /* quizType */"any",
   /* fetchingQuestions */false
@@ -45,7 +45,7 @@ function reducer(state, action) {
               /* questions */state[/* questions */1],
               /* quizStream */MakeStream$Savvy.array(/* array */[]),
               /* categories */state[/* categories */3],
-              /* numberOfQuestions */0,
+              /* numberOfQuestions */1,
               /* quizDifficulty */"any",
               /* quizType */"any",
               /* fetchingQuestions */state[/* fetchingQuestions */7]

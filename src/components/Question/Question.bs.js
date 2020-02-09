@@ -2,18 +2,17 @@
 
 import * as List from "bs-platform/lib/es6/list.js";
 import * as $$Array from "bs-platform/lib/es6/array.js";
-import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as QuestionStyles$Savvy from "./QuestionStyles.bs.js";
 
 function Question(Props) {
   var currentQuestion = Props.currentQuestion;
-  var nextQuestion = Props.nextQuestion;
   return React.createElement("div", {
               className: QuestionStyles$Savvy.questions
             }, Belt_Option.mapWithDefault(currentQuestion, null, (function (currentQuestion) {
                     return React.createElement("h1", {
+                                className: QuestionStyles$Savvy.questionText,
                                 dangerouslySetInnerHTML: {
                                   __html: currentQuestion[/* question */3]
                                 }
@@ -29,9 +28,6 @@ function Question(Props) {
                                       return React.createElement("p", {
                                                   key: answer,
                                                   className: QuestionStyles$Savvy.question,
-                                                  onClick: (function (param) {
-                                                      return Curry._1(nextQuestion, /* () */0);
-                                                    }),
                                                   dangerouslySetInnerHTML: {
                                                     __html: answer
                                                   }

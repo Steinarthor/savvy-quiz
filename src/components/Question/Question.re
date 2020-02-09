@@ -1,9 +1,11 @@
 [@react.component]
-let make =
-    (~currentQuestion: option(Types.question), ~nextQuestion: unit => unit) => {
+let make = (~currentQuestion: option(Types.question)) => {
   <div className=QuestionStyles.questions>
     {currentQuestion->Belt.Option.mapWithDefault(React.null, currentQuestion =>
-       <h1 dangerouslySetInnerHTML={"__html": currentQuestion.question} />
+       <h1
+         className=QuestionStyles.questionText
+         dangerouslySetInnerHTML={"__html": currentQuestion.question}
+       />
      )}
     {currentQuestion->Belt.Option.mapWithDefault(
        React.null,
@@ -18,7 +20,6 @@ let make =
                key=answer
                className=QuestionStyles.question
                dangerouslySetInnerHTML={"__html": answer}
-               onClick={_ => nextQuestion()}
              />,
            answers,
          )

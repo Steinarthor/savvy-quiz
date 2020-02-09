@@ -4,7 +4,7 @@ let quizContext: Types.quizContext = {
     questions: [||],
     categories: [||],
     quizStream: MakeStream.array(~arrayList=[||]),
-    numberOfQuestions: 0,
+    numberOfQuestions: 1,
     quizDifficulty: "any",
     quizType: "any",
     fetchingQuestions: false,

@@ -2,7 +2,7 @@
 
 import * as Css from "bs-css/src/Css.js";
 
-var questions = Css.style(/* :: */[
+var createQuiz = Css.style(/* :: */[
       Css.display(/* flex */-1010954439),
       /* :: */[
         Css.flexDirection(/* column */-963948842),
@@ -17,7 +17,7 @@ var questions = Css.style(/* :: */[
     ]);
 
 export {
-  questions ,
+  createQuiz ,
   
 }
-/* questions Not a pure module */
+/* createQuiz Not a pure module */

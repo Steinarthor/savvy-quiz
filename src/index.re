@@ -16,6 +16,14 @@ global(
     ),
   ],
 );
-global("body", [fontFamily(globalFont), margin(px(0))]);
+global(
+  "body",
+  [
+    fontFamily(globalFont),
+    margin(px(0)),
+    color(white),
+    backgroundColor(Css_AtomicTypes.Color.hex(Colors.indigo)),
+  ],
+);
 global("#app", [margin(px(25))]);
 ReactDOMRe.renderToElementWithId(<Root />, "app");

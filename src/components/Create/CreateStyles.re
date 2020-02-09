@@ -1,6 +1,6 @@
 open Css;
 
-let questions =
+let createQuiz =
   style([
     display(`flex),
     flexDirection(`column),

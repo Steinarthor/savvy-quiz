@@ -8,6 +8,7 @@ import * as Button$Savvy from "../Button/Button.bs.js";
 import * as Select$Savvy from "../Select/Select.bs.js";
 import * as Network$Savvy from "../../network/Network.bs.js";
 import * as QuizContext$Savvy from "../../context/QuizContext.bs.js";
+import * as CreateStyles$Savvy from "./CreateStyles.bs.js";
 
 function Create(Props) {
   var categoryId = Props.categoryId;
@@ -29,7 +30,9 @@ function Create(Props) {
   var setQuestionType = function (quizType) {
     return Curry._1(quizContext[/* dispatch */1], /* SetQuizType */Block.__(2, [quizType]));
   };
-  return React.createElement(React.Fragment, undefined, React.createElement(Input$Savvy.make, {
+  return React.createElement("div", {
+              className: CreateStyles$Savvy.createQuiz
+            }, React.createElement(Input$Savvy.make, {
                   value: String(quizContext[/* state */0][/* numberOfQuestions */4]),
                   onChange: (function ($$event) {
                       return Curry._1(quizContext[/* dispatch */1], /* SetNumberOfQuestions */Block.__(0, [$$event.target.value]));

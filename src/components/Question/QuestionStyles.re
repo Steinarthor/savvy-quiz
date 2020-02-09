@@ -1,5 +1,7 @@
 open Css;
 
+let questionText = style([textAlign(center)]);
+
 let questions =
   style([
     display(`flex),
@@ -11,7 +13,12 @@ let questions =
 let question =
   style([
     margin(px(5)),
+    padding(px(25)),
+    width(pct(100.)),
     cursor(`pointer),
+    border(px(4), solid, Css_AtomicTypes.Color.hex(Colors.lightblue)),
+    borderRadius(px(10)),
+    textAlign(center),
     fontSize(px(24)),
     fontWeight(bold),
   ]);

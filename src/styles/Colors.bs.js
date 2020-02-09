@@ -5,11 +5,17 @@ var gray = "dadce0";
 
 var red = "F87285";
 
+var indigo = "283593";
+
+var lightblue = "1E88E5";
+
 var transparent = "transparent";
 
 export {
   gray ,
   red ,
+  indigo ,
+  lightblue ,
   transparent ,
   
 }

@@ -8,7 +8,7 @@ let button =
     maxWidth(px(300)),
     margin(px(25)),
     borderRadius(px(4)),
-    backgroundColor(Css_AtomicTypes.Color.hex(Colors.red)),
+    backgroundColor(Css_AtomicTypes.Color.hex(Colors.lightblue)),
     boxShadows([
       Shadow.box(~y=px(1), ~blur=px(3), rgba(0, 0, 0, 0.12)),
       Shadow.box(~y=px(1), ~blur=px(2), rgba(0, 0, 0, 0.24)),

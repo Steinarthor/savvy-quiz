@@ -8,7 +8,7 @@ var quizContext_000 = /* state : record */[
   /* questions : array */[],
   /* quizStream */MakeStream$Savvy.array(/* array */[]),
   /* categories : array */[],
-  /* numberOfQuestions */0,
+  /* numberOfQuestions */1,
   /* quizDifficulty */"any",
   /* quizType */"any",
   /* fetchingQuestions */false

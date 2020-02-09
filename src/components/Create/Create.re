@@ -39,7 +39,7 @@ let make =
     {value: "multiple", label: "Multiple"},
     {value: "boolean", label: "Boolean"},
   ];
-  <>
+  <div className=CreateStyles.createQuiz>
     <Input
       value={string_of_int(quizContext.state.numberOfQuestions)}
       onChange={event =>
@@ -66,5 +66,5 @@ let make =
       }}
       disabled=false
     />
-  </>;
+  </div>;
 };

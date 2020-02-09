@@ -4,6 +4,8 @@ import * as Css from "bs-css/src/Css.js";
 import * as React from "react";
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
 import * as Root$Savvy from "./Root.bs.js";
+import * as Colors$Savvy from "./styles/Colors.bs.js";
+import * as Css_AtomicTypes from "bs-css/src/Css_AtomicTypes.js";
 
 var globalFont = Css.fontFace("MontserratMedium", /* :: */[
       Css.url("./src/fonts/Montserrat-Light.otf"),
@@ -28,7 +30,13 @@ Css.$$global("body", /* :: */[
       Css.fontFamily(globalFont),
       /* :: */[
         Css.margin(Css.px(0)),
-        /* [] */0
+        /* :: */[
+          Css.color(Css.white),
+          /* :: */[
+            Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.indigo)),
+            /* [] */0
+          ]
+        ]
       ]
     ]);
 

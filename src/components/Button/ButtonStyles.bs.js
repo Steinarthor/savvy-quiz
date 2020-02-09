@@ -17,7 +17,7 @@ var button = Css.style(/* :: */[
               /* :: */[
                 Css.borderRadius(Css.px(4)),
                 /* :: */[
-                  Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.red)),
+                  Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.lightblue)),
                   /* :: */[
                     Css.boxShadows(/* :: */[
                           Css.Shadow.box(undefined, Css.px(1), Css.px(3), undefined, undefined, Css.rgba(0, 0, 0, 0.12)),

@@ -3,9 +3,11 @@
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Stream from "bs-platform/lib/es6/stream.js";
+import * as Button$Savvy from "../Button/Button.bs.js";
 import * as Question$Savvy from "../Question/Question.bs.js";
 import * as QuizContext$Savvy from "../../context/QuizContext.bs.js";
 import * as QuestionCount$Savvy from "../QuestionCount/QuestionCount.bs.js";
+import * as QuestionStyles$Savvy from "../Question/QuestionStyles.bs.js";
 
 function Questions(Props) {
   var match = React.useState((function () {
@@ -46,12 +48,20 @@ function Questions(Props) {
   if (match$2) {
     return React.createElement("div", undefined, "Loading...");
   } else {
-    return React.createElement(React.Fragment, undefined, React.createElement(QuestionCount$Savvy.make, {
+    return React.createElement("div", {
+                className: QuestionStyles$Savvy.questions
+              }, React.createElement(QuestionCount$Savvy.make, {
                     count: match$1[0],
                     total: totalQuestions
                   }), React.createElement(Question$Savvy.make, {
-                    currentQuestion: match[0],
-                    nextQuestion: nextQuestion
+                    currentQuestion: match[0]
+                  }), React.createElement(Button$Savvy.make, {
+                    text: "Next",
+                    type_: "button",
+                    onClick: (function (param) {
+                        return nextQuestion(/* () */0);
+                      }),
+                    disabled: false
                   }));
   }
 }

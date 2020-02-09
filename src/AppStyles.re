@@ -3,7 +3,7 @@ open Css;
 let container =
   style([
     display(`flex),
-    flexDirection(`column),
+    flexWrap(`wrap),
     alignItems(`center),
     justifyContent(`center),
   ]);

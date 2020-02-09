@@ -32,6 +32,11 @@ Css.$$global("body", /* :: */[
       ]
     ]);
 
+Css.$$global("#app", /* :: */[
+      Css.margin(Css.px(25)),
+      /* [] */0
+    ]);
+
 ReactDOMRe.renderToElementWithId(React.createElement(Root$Savvy.make, { }), "app");
 
 export {

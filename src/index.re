@@ -17,4 +17,5 @@ global(
   ],
 );
 global("body", [fontFamily(globalFont), margin(px(0))]);
+global("#app", [margin(px(25))]);
 ReactDOMRe.renderToElementWithId(<Root />, "app");

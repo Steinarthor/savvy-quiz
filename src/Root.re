@@ -1,10 +1,12 @@
 let initialState: Types.quizState = {
   token: "",
   questions: [||],
+  categories: [||],
   quizStream: MakeStream.array(~arrayList=[||]),
   numberOfQuestions: 0,
   quizDifficulty: "any",
   quizType: "any",
+  fetchingQuestions: false,
 };
 
 let reducer = (state: Types.quizState, action: Types.quizAction) => {
@@ -12,11 +14,20 @@ let reducer = (state: Types.quizState, action: Types.quizAction) => {
   | SetNumberOfQuestions(numberOfQuestions) => {...state, numberOfQuestions}
   | SetQuizDifficulty(quizDifficulty) => {...state, quizDifficulty}
   | SetQuizType(quizType) => {...state, quizType}
+  | SetCategories(categories) => {...state, categories}
   | SetQuestions(questions) => {...state, questions}
   | SetToken(token) => {...state, token}
+  | FetchingQuestions(fetchingQuestions) => {...state, fetchingQuestions}
   | MakeStream => {
       ...state,
       quizStream: MakeStream.array(~arrayList=state.questions),
+    }
+  | ClearContext => {
+      ...state,
+      numberOfQuestions: initialState.numberOfQuestions,
+      quizDifficulty: initialState.quizDifficulty,
+      quizType: initialState.quizType,
+      quizStream: MakeStream.array(~arrayList=[||]),
     }
   };
 };
@@ -37,7 +48,22 @@ let make = () => {
          })
     )
     |> ignore;
+
+    // Fetching categories
+    Js.Promise.(
+      Fetch.fetch("https://opentdb.com/api_category.php")
+      |> then_(Fetch.Response.json)
+      |> then_(json => {
+           let response = Types.Categories.decode(json);
+           dispatch(SetCategories(response.trivia_categories));
+           resolve();
+         })
+      |> catch(_err => Js.Promise.resolve())
+      |> ignore
+    );
     None;
   });
-  <QuizProvider value=contextValue> <Router /> </QuizProvider>;
+  <QuizProvider value=contextValue>
+    <> <Header /> <Router /> </>
+  </QuizProvider>;
 };

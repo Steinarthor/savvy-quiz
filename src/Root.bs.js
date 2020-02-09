@@ -4,6 +4,7 @@ import * as Block from "bs-platform/lib/es6/block.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Types$Savvy from "./types/Types.bs.js";
+import * as Header$Savvy from "./components/Header/Header.bs.js";
 import * as Router$Savvy from "./Router.bs.js";
 import * as MakeStream$Savvy from "./utils/MakeStream.bs.js";
 import * as QuizProvider$Savvy from "./context/QuizProvider.bs.js";
@@ -12,25 +13,44 @@ var initialState_001 = /* questions : array */[];
 
 var initialState_002 = /* quizStream */MakeStream$Savvy.array(/* array */[]);
 
+var initialState_003 = /* categories : array */[];
+
 var initialState = /* record */[
   /* token */"",
   initialState_001,
   initialState_002,
+  initialState_003,
   /* numberOfQuestions */0,
   /* quizDifficulty */"any",
-  /* quizType */"any"
+  /* quizType */"any",
+  /* fetchingQuestions */false
 ];
 
 function reducer(state, action) {
   if (typeof action === "number") {
-    return /* record */[
-            /* token */state[/* token */0],
-            /* questions */state[/* questions */1],
-            /* quizStream */MakeStream$Savvy.array(state[/* questions */1]),
-            /* numberOfQuestions */state[/* numberOfQuestions */3],
-            /* quizDifficulty */state[/* quizDifficulty */4],
-            /* quizType */state[/* quizType */5]
-          ];
+    if (action === /* MakeStream */0) {
+      return /* record */[
+              /* token */state[/* token */0],
+              /* questions */state[/* questions */1],
+              /* quizStream */MakeStream$Savvy.array(state[/* questions */1]),
+              /* categories */state[/* categories */3],
+              /* numberOfQuestions */state[/* numberOfQuestions */4],
+              /* quizDifficulty */state[/* quizDifficulty */5],
+              /* quizType */state[/* quizType */6],
+              /* fetchingQuestions */state[/* fetchingQuestions */7]
+            ];
+    } else {
+      return /* record */[
+              /* token */state[/* token */0],
+              /* questions */state[/* questions */1],
+              /* quizStream */MakeStream$Savvy.array(/* array */[]),
+              /* categories */state[/* categories */3],
+              /* numberOfQuestions */0,
+              /* quizDifficulty */"any",
+              /* quizType */"any",
+              /* fetchingQuestions */state[/* fetchingQuestions */7]
+            ];
+    }
   } else {
     switch (action.tag | 0) {
       case /* SetNumberOfQuestions */0 :
@@ -38,45 +58,77 @@ function reducer(state, action) {
                   /* token */state[/* token */0],
                   /* questions */state[/* questions */1],
                   /* quizStream */state[/* quizStream */2],
+                  /* categories */state[/* categories */3],
                   /* numberOfQuestions */action[0],
-                  /* quizDifficulty */state[/* quizDifficulty */4],
-                  /* quizType */state[/* quizType */5]
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
                 ];
       case /* SetQuizDifficulty */1 :
           return /* record */[
                   /* token */state[/* token */0],
                   /* questions */state[/* questions */1],
                   /* quizStream */state[/* quizStream */2],
-                  /* numberOfQuestions */state[/* numberOfQuestions */3],
+                  /* categories */state[/* categories */3],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
                   /* quizDifficulty */action[0],
-                  /* quizType */state[/* quizType */5]
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
                 ];
       case /* SetQuizType */2 :
           return /* record */[
                   /* token */state[/* token */0],
                   /* questions */state[/* questions */1],
                   /* quizStream */state[/* quizStream */2],
-                  /* numberOfQuestions */state[/* numberOfQuestions */3],
-                  /* quizDifficulty */state[/* quizDifficulty */4],
-                  /* quizType */action[0]
+                  /* categories */state[/* categories */3],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */action[0],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
                 ];
       case /* SetQuestions */3 :
           return /* record */[
                   /* token */state[/* token */0],
                   /* questions */action[0],
                   /* quizStream */state[/* quizStream */2],
-                  /* numberOfQuestions */state[/* numberOfQuestions */3],
-                  /* quizDifficulty */state[/* quizDifficulty */4],
-                  /* quizType */state[/* quizType */5]
+                  /* categories */state[/* categories */3],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
                 ];
-      case /* SetToken */4 :
+      case /* SetCategories */4 :
+          return /* record */[
+                  /* token */state[/* token */0],
+                  /* questions */state[/* questions */1],
+                  /* quizStream */state[/* quizStream */2],
+                  /* categories */action[0],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
+                ];
+      case /* SetToken */5 :
           return /* record */[
                   /* token */action[0],
                   /* questions */state[/* questions */1],
                   /* quizStream */state[/* quizStream */2],
-                  /* numberOfQuestions */state[/* numberOfQuestions */3],
-                  /* quizDifficulty */state[/* quizDifficulty */4],
-                  /* quizType */state[/* quizType */5]
+                  /* categories */state[/* categories */3],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */state[/* fetchingQuestions */7]
+                ];
+      case /* FetchingQuestions */6 :
+          return /* record */[
+                  /* token */state[/* token */0],
+                  /* questions */state[/* questions */1],
+                  /* quizStream */state[/* quizStream */2],
+                  /* categories */state[/* categories */3],
+                  /* numberOfQuestions */state[/* numberOfQuestions */4],
+                  /* quizDifficulty */state[/* quizDifficulty */5],
+                  /* quizType */state[/* quizType */6],
+                  /* fetchingQuestions */action[0]
                 ];
       
     }
@@ -96,12 +148,21 @@ function Root(Props) {
                     return res.json();
                   })).then((function (json) {
                   var tokenResponse = Types$Savvy.RequestToken.decode(json);
-                  Curry._1(dispatch, /* SetToken */Block.__(4, [tokenResponse[/* token */2]]));
+                  Curry._1(dispatch, /* SetToken */Block.__(5, [tokenResponse[/* token */2]]));
+                  return Promise.resolve(/* () */0);
+                }));
+          fetch("https://opentdb.com/api_category.php").then((function (prim) {
+                      return prim.json();
+                    })).then((function (json) {
+                    var response = Types$Savvy.Categories.decode(json);
+                    Curry._1(dispatch, /* SetCategories */Block.__(4, [response[/* trivia_categories */0]]));
+                    return Promise.resolve(/* () */0);
+                  })).catch((function (_err) {
                   return Promise.resolve(/* () */0);
                 }));
           return ;
         }), ([]));
-  return React.createElement(QuizProvider$Savvy.make, QuizProvider$Savvy.makeProps(contextValue, React.createElement(Router$Savvy.make, { }), /* () */0));
+  return React.createElement(QuizProvider$Savvy.make, QuizProvider$Savvy.makeProps(contextValue, React.createElement(React.Fragment, undefined, React.createElement(Header$Savvy.make, { }), React.createElement(Router$Savvy.make, { })), /* () */0));
 }
 
 var make = Root;

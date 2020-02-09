@@ -5,12 +5,17 @@ import * as React from "react";
 import * as Stream from "bs-platform/lib/es6/stream.js";
 import * as Question$Savvy from "../Question/Question.bs.js";
 import * as QuizContext$Savvy from "../../context/QuizContext.bs.js";
+import * as QuestionCount$Savvy from "../QuestionCount/QuestionCount.bs.js";
 
 function Questions(Props) {
   var match = React.useState((function () {
           return ;
         }));
   var setCurrentQuestion = match[1];
+  var match$1 = React.useState((function () {
+          return 0;
+        }));
+  var setQuestionCount = match$1[1];
   var quizContext = QuizContext$Savvy.useQuiz(/* () */0);
   var nextQuestion = function (param) {
     var question;
@@ -25,18 +30,30 @@ function Questions(Props) {
         throw exn;
       }
     }
-    return Curry._1(setCurrentQuestion, (function (param) {
-                  return question;
+    Curry._1(setCurrentQuestion, (function (param) {
+            return question;
+          }));
+    return Curry._1(setQuestionCount, (function (count) {
+                  return count + 1 | 0;
                 }));
   };
+  var totalQuestions = quizContext[/* state */0][/* questions */1].length;
   React.useEffect((function () {
           nextQuestion(/* () */0);
           return ;
         }), /* array */[quizContext[/* state */0][/* quizStream */2]]);
-  return React.createElement(Question$Savvy.make, {
-              currentQuestion: match[0],
-              nextQuestion: nextQuestion
-            });
+  var match$2 = quizContext[/* state */0][/* fetchingQuestions */7];
+  if (match$2) {
+    return React.createElement("div", undefined, "Loading...");
+  } else {
+    return React.createElement(React.Fragment, undefined, React.createElement(QuestionCount$Savvy.make, {
+                    count: match$1[0],
+                    total: totalQuestions
+                  }), React.createElement(Question$Savvy.make, {
+                    currentQuestion: match[0],
+                    nextQuestion: nextQuestion
+                  }));
+  }
 }
 
 var make = Questions;

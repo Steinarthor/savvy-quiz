@@ -20,21 +20,31 @@ type answer = {
   answer: string,
 };
 
+type category = {
+  id: int,
+  name: string,
+};
+
 type quizAction =
   | SetNumberOfQuestions(int)
   | SetQuizDifficulty(string)
   | SetQuizType(string)
   | SetQuestions(array(question))
+  | SetCategories(array(category))
   | SetToken(string)
-  | MakeStream;
+  | FetchingQuestions(bool)
+  | MakeStream
+  | ClearContext;
 
 type quizState = {
   token: string,
   questions: array(question),
   quizStream: Stream.t(question),
+  categories: array(category),
   numberOfQuestions: int,
   quizDifficulty: string,
   quizType: string,
+  fetchingQuestions: bool,
 };
 
 type quizContext = {
@@ -46,11 +56,6 @@ type requestToken = {
   response_code: int,
   response_message: string,
   token: string,
-};
-
-type category = {
-  id: int,
-  name: string,
 };
 
 type categoryTypeResults = {

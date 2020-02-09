@@ -5,7 +5,7 @@ import * as Css from "bs-css/src/Css.js";
 var container = Css.style(/* :: */[
       Css.display(/* flex */-1010954439),
       /* :: */[
-        Css.flexDirection(/* column */-963948842),
+        Css.flexWrap(/* wrap */-822134326),
         /* :: */[
           Css.alignItems(/* center */98248149),
           /* :: */[

@@ -7,9 +7,11 @@ var quizContext_000 = /* state : record */[
   /* token */"",
   /* questions : array */[],
   /* quizStream */MakeStream$Savvy.array(/* array */[]),
+  /* categories : array */[],
   /* numberOfQuestions */0,
   /* quizDifficulty */"any",
-  /* quizType */"any"
+  /* quizType */"any",
+  /* fetchingQuestions */false
 ];
 
 function quizContext_001(param) {

@@ -32,7 +32,7 @@ var question = Css.style(/* :: */[
           /* :: */[
             Css.cursor(/* pointer */-786317123),
             /* :: */[
-              Css.border(Css.px(4), Css.solid, Css_AtomicTypes.Color.hex(Colors$Savvy.lightblue)),
+              Css.border(Css.px(2), Css.solid, Css_AtomicTypes.Color.hex(Colors$Savvy.lightblue)),
               /* :: */[
                 Css.borderRadius(Css.px(10)),
                 /* :: */[
@@ -41,7 +41,13 @@ var question = Css.style(/* :: */[
                     Css.fontSize(Css.px(24)),
                     /* :: */[
                       Css.fontWeight(Css.bold),
-                      /* [] */0
+                      /* :: */[
+                        Css.hover(/* :: */[
+                              Css.backgroundColor(Css_AtomicTypes.Color.hex(Colors$Savvy.darkerIndigo)),
+                              /* [] */0
+                            ]),
+                        /* [] */0
+                      ]
                     ]
                   ]
                 ]

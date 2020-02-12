@@ -26,6 +26,7 @@ let make = () => {
     ? <div> {React.string("Loading...")} </div>
     : <div className=QuestionStyles.questions>
         <QuestionCount count=questionCount total=totalQuestions />
+        <CountDown />
         <Question currentQuestion />
         <Button
           text="Next"

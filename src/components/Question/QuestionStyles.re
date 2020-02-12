@@ -16,9 +16,12 @@ let question =
     padding(px(25)),
     width(pct(100.)),
     cursor(`pointer),
-    border(px(4), solid, Css_AtomicTypes.Color.hex(Colors.lightblue)),
+    border(px(2), solid, Css_AtomicTypes.Color.hex(Colors.lightblue)),
     borderRadius(px(10)),
     textAlign(center),
     fontSize(px(24)),
     fontWeight(bold),
+    hover([
+      backgroundColor(Css_AtomicTypes.Color.hex(Colors.darkerIndigo)),
+    ]),
   ]);

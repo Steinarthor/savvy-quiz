@@ -3,9 +3,10 @@
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Stream from "bs-platform/lib/es6/stream.js";
+import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as Button$Savvy from "../Button/Button.bs.js";
+import * as Process$Savvy from "../Process/Process.bs.js";
 import * as Question$Savvy from "../Question/Question.bs.js";
-import * as CountDown$Savvy from "../CountDown/CountDown.bs.js";
 import * as QuizContext$Savvy from "../../context/QuizContext.bs.js";
 import * as QuestionCount$Savvy from "../QuestionCount/QuestionCount.bs.js";
 import * as QuestionStyles$Savvy from "../Question/QuestionStyles.bs.js";
@@ -15,10 +16,20 @@ function Questions(Props) {
           return ;
         }));
   var setCurrentQuestion = match[1];
+  var currentQuestion = match[0];
   var match$1 = React.useState((function () {
+          return ;
+        }));
+  var setSelectedQuestion = match$1[1];
+  var match$2 = React.useState((function () {
           return 0;
         }));
-  var setQuestionCount = match$1[1];
+  var setQuestionCount = match$2[1];
+  var questionCount = match$2[0];
+  var match$3 = React.useState((function () {
+          return "";
+        }));
+  var setCorrectAnswer = match$3[1];
   var quizContext = QuizContext$Savvy.useQuiz(/* () */0);
   var nextQuestion = function (param) {
     var question;
@@ -40,22 +51,41 @@ function Questions(Props) {
                   return count + 1 | 0;
                 }));
   };
+  var correctAnswer = function (answer) {
+    return Belt_Option.mapWithDefault(answer, /* () */0, (function (answer) {
+                  return Curry._1(setCorrectAnswer, (function (param) {
+                                return answer[/* correctAnswer */4];
+                              }));
+                }));
+  };
+  var setSelectedQuestion$1 = function (question) {
+    correctAnswer(currentQuestion);
+    return Curry._1(setSelectedQuestion, (function (param) {
+                  return question;
+                }));
+  };
   var totalQuestions = quizContext[/* state */0][/* questions */1].length;
   React.useEffect((function () {
           nextQuestion(/* () */0);
           return ;
         }), /* array */[quizContext[/* state */0][/* quizStream */2]]);
-  var match$2 = quizContext[/* state */0][/* fetchingQuestions */7];
-  if (match$2) {
+  var match$4 = quizContext[/* state */0][/* fetchingQuestions */7];
+  if (match$4) {
     return React.createElement("div", undefined, "Loading...");
   } else {
     return React.createElement("div", {
                 className: QuestionStyles$Savvy.questions
               }, React.createElement(QuestionCount$Savvy.make, {
-                    count: match$1[0],
+                    count: questionCount,
                     total: totalQuestions
-                  }), React.createElement(CountDown$Savvy.make, { }), React.createElement(Question$Savvy.make, {
-                    currentQuestion: match[0]
+                  }), React.createElement(Process$Savvy.make, {
+                    count: questionCount,
+                    totalQuestions: totalQuestions
+                  }), React.createElement(Question$Savvy.make, {
+                    currentQuestion: currentQuestion,
+                    setSelectedQuestion: setSelectedQuestion$1,
+                    selectedQuestion: match$1[0],
+                    answer: match$3[0]
                   }), React.createElement(Button$Savvy.make, {
                     text: "Next",
                     type_: "button",

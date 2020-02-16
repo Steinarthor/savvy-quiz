@@ -1,7 +1,10 @@
 [@react.component]
 let make = () => {
   let (currentQuestion, setCurrentQuestion) = React.useState(() => None);
+  let (selectedQuestion, setSelectedQuestion) = React.useState(() => None);
   let (questionCount, setQuestionCount) = React.useState(_ => 0);
+  let (answer, setCorrectAnswer) = React.useState(_ => "");
+
   let quizContext = QuizContext.useQuiz();
   let nextQuestion = () => {
     switch (Stream.next(quizContext.state.quizStream)) {
@@ -12,11 +15,23 @@ let make = () => {
     };
   };
 
-  let totalQuestions = Array.length(quizContext.state.questions);
+  let correctAnswer =
+    Belt.Option.(
+      (answer: option(Types.question)) => {
+        answer->mapWithDefault((), (answer: Types.question) =>
+          setCorrectAnswer(_ => answer.correctAnswer)
+        );
+      }
+    );
 
+  let setSelectedQuestion = question => {
+    correctAnswer(currentQuestion);
+    setSelectedQuestion(_ => Some(question));
+  };
+
+  let totalQuestions = Array.length(quizContext.state.questions);
   React.useEffect1(
     () => {
-      // We do this to show the first question in the stream on mount..
       nextQuestion();
       None;
     },
@@ -26,8 +41,13 @@ let make = () => {
     ? <div> {React.string("Loading...")} </div>
     : <div className=QuestionStyles.questions>
         <QuestionCount count=questionCount total=totalQuestions />
-        <CountDown />
-        <Question currentQuestion />
+        <Process count=questionCount totalQuestions />
+        <Question
+          currentQuestion
+          setSelectedQuestion
+          selectedQuestion
+          answer
+        />
         <Button
           text="Next"
           type_="button"

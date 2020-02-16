@@ -1,5 +1,11 @@
 [@react.component]
-let make = (~currentQuestion: option(Types.question)) => {
+let make =
+    (
+      ~currentQuestion: option(Types.question),
+      ~setSelectedQuestion: string => unit,
+      ~selectedQuestion: option(string),
+      ~answer: string,
+    ) => {
   <div className=QuestionStyles.questions>
     {currentQuestion->Belt.Option.mapWithDefault(React.null, currentQuestion =>
        <h1
@@ -15,11 +21,21 @@ let make = (~currentQuestion: option(Types.question)) => {
            ...currentQuestion.incorretAnswers,
          ];
          List.map(
-           (answer: string) =>
+           (question: string) =>
              <p
-               key=answer
-               className=QuestionStyles.question
-               dangerouslySetInnerHTML={"__html": answer}
+               key=question
+               className={Cn.make([
+                 QuestionStyles.question,
+                 QuestionStyles.selectedQuestion->Cn.ifTrue(
+                   Belt.Option.getWithDefault(selectedQuestion, "")
+                   === question,
+                 ),
+                 QuestionStyles.correctQuestion->Cn.ifTrue(
+                   answer === question,
+                 ),
+               ])}
+               dangerouslySetInnerHTML={"__html": question}
+               onClick={_ => setSelectedQuestion(question)}
              />,
            answers,
          )

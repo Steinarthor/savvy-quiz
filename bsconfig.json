@@ -20,7 +20,8 @@
         "reason-react",
         "bs-css",
         "bs-fetch",
-        "@glennsl/bs-json"
+        "@glennsl/bs-json",
+        "re-classnames"
     ],
     "ppx-flags": [],
     "refmt": 3

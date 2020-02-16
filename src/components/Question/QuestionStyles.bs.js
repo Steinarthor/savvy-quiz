@@ -58,10 +58,70 @@ var question = Css.style(/* :: */[
       ]
     ]);
 
+var selectedQuestion = Css.style(/* :: */[
+      Css.margin(Css.px(5)),
+      /* :: */[
+        Css.padding(Css.px(25)),
+        /* :: */[
+          Css.width(Css.pct(100)),
+          /* :: */[
+            Css.cursor(/* pointer */-786317123),
+            /* :: */[
+              Css.border(Css.px(2), Css.solid, Css_AtomicTypes.Color.hex(Colors$Savvy.red)),
+              /* :: */[
+                Css.borderRadius(Css.px(10)),
+                /* :: */[
+                  Css.textAlign(Css.center),
+                  /* :: */[
+                    Css.fontSize(Css.px(24)),
+                    /* :: */[
+                      Css.fontWeight(Css.bold),
+                      /* [] */0
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]);
+
+var correctQuestion = Css.style(/* :: */[
+      Css.margin(Css.px(5)),
+      /* :: */[
+        Css.padding(Css.px(25)),
+        /* :: */[
+          Css.width(Css.pct(100)),
+          /* :: */[
+            Css.cursor(/* pointer */-786317123),
+            /* :: */[
+              Css.border(Css.px(2), Css.solid, Css.green),
+              /* :: */[
+                Css.borderRadius(Css.px(10)),
+                /* :: */[
+                  Css.textAlign(Css.center),
+                  /* :: */[
+                    Css.fontSize(Css.px(24)),
+                    /* :: */[
+                      Css.fontWeight(Css.bold),
+                      /* [] */0
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]);
+
 export {
   questionText ,
   questions ,
   question ,
+  selectedQuestion ,
+  correctQuestion ,
   
 }
 /* questionText Not a pure module */
